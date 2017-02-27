@@ -1,12 +1,12 @@
 #!/bin/bash
 
-/usr/bin/mariadbd_safe > /dev/null 2>&1 &
+/usr/bin/mysqld_safe > /dev/null 2>&1 &
 
 RET=1
 while [[ RET -ne 0 ]]; do
     echo "=> Waiting for confirmation of Mariadb service startup"
     sleep 5
-    mariadb -uroot -e "status" > /dev/null 2>&1
+    mysql -uroot -e "status" > /dev/null 2>&1
     RET=$?
 done
 
@@ -18,8 +18,8 @@ PASS=${MARIADB_PASS:-$(pwgen -s 12 1)}
 _word=$( [ ${MARIADB_PASS} ] && echo "preset" || echo "random" )
 echo "=> Creating Mariadb user ${MARIADB_USER} with ${_word} password"
 
-mariadb -uroot -e "CREATE USER '${MARIADB_USER}'@'%' IDENTIFIED BY '$PASS'"
-mariadb -uroot -e "GRANT ALL PRIVILEGES ON *.* TO '${MARIADB_USER}'@'%' WITH GRANT OPTION"
+mysql -uroot -e "CREATE USER '${MARIADB_USER}'@'%' IDENTIFIED BY '$PASS'"
+mysql -uroot -e "GRANT ALL PRIVILEGES ON *.* TO '${MARIADB_USER}'@'%' WITH GRANT OPTION"
 
 
 echo "=> Done!"
@@ -33,4 +33,4 @@ echo "Please remember to change the above password as soon as possible!"
 echo "Mariadb user 'root' has no password but only allows local connections"
 echo "========================================================================"
 
-mariadbadmin -uroot shutdown
+mysqladmin -uroot shutdown
