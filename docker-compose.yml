@@ -1,0 +1,18 @@
+version: '2'
+services:
+  mariadb:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    image: sismics/mariadb:10.0
+    restart: always
+    ports:
+      - 3306:3306
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    container_name: mariadb
+    network_mode: bridge
+
+volumes:
+  mariadb_data:
+    external: true

@@ -21,7 +21,6 @@ echo "=> Creating Mariadb user ${MARIADB_USER} with ${_word} password"
 mysql -uroot -e "CREATE USER '${MARIADB_USER}'@'%' IDENTIFIED BY '$PASS'"
 mysql -uroot -e "GRANT ALL PRIVILEGES ON *.* TO '${MARIADB_USER}'@'%' WITH GRANT OPTION"
 
-
 echo "=> Done!"
 
 echo "========================================================================"
@@ -34,3 +33,5 @@ echo "Mariadb user 'root' has no password but only allows local connections"
 echo "========================================================================"
 
 mysqladmin -uroot shutdown
+
+touch /var/lib/mysql/initialized
