@@ -16,7 +16,7 @@
 # You can now test your deployment:
 # mariadb -uadmin -p -h<DOCKER_HOST>
 
-FROM ubuntu:yakkety
+FROM ubuntu:focal
 MAINTAINER Jean-Marc Tremeaux <jm.tremeaux@sismics.com>
 
 RUN apt-get update
